@@ -1,0 +1,62 @@
+<div class="row">
+  <button class="btn btn-primary col" (click)="getNoticiasFiltradas('deporte')">
+    Deportes
+  </button>
+  <button
+    class="btn btn-primary col"
+    (click)="getNoticiasFiltradas('politica')"
+  >
+    Política
+  </button>
+  <button
+    class="btn btn-primary col"
+    (click)="getNoticiasFiltradas('sociedad')"
+  >
+    Sociedad
+  </button>
+  <button class="btn btn-primary col" (click)="ngOnInit()">Todas</button>
+</div>
+<div class="row">
+  <div class="col">
+    <h2 style="text-align: center" class="m-4">Titulares</h2>
+    <div class="row">
+      <div class="col" *ngFor="let item of noticias">
+        <div class="card" style="width: 18rem">
+          <img
+            [src]="item.urlToImage | imagenes"
+            class="card-img-top"
+            alt="..."
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ item.title }}</h5>
+          </div>
+
+          <p class="card-text">{{ item.description }}</p>
+          <div class="row">
+            <a [href]="item.url" class="btn btn-primary col">Ir a web</a>
+            <a
+              href="#"
+              class="btn btn-primary col"
+              (click)="cambiarAlert(item.content, item.urlToImage)"
+              >Detalle</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <h2 style="text-align: center" class="m-4">Contenido de la noticia</h2>
+    <ng-container *ngIf="variableMostrar; else elseTemplate">
+      <div class="row">
+        <img [src]="imagen | imagenes" alt="..." />
+        <p>{{ texto }}</p>
+      </div>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <div class="alert alert-primary" role="alert">
+        Por favor selecciona una noticia.
+      </div>
+    </ng-template>
+  </div>
+</div>
